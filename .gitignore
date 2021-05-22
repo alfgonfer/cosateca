@@ -1,5 +1,5 @@
 __pycache__/
-*.py[cod]
+*__pycache__*
 *$py.class
 db.sqlite3
 db.sqlite3-journal

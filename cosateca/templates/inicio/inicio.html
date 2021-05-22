@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Inicio{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="float-left col-sm-6">
+        <p><strong><h1>La Cosateca</h1></strong></p>
+    </div>
+    <div class="container-fluid d-flex justify-content-between text-justify">
+        <div class="float-left col-sm-6">
+            <h4><p>La Cosateca es un proyecto realizado como TFG para el grado de Ingeniería Informática - Ingeniería
+                del Software de la Universidad de Sevilla. Ha sido llevado a cabo por el alumno Alfonso González Fernández.</p>
+            <p>Consiste en una aplicación web, usando Django como framework base, una base de datos PostgreSQL y HTML, CSS y Bootstrap
+                como tecnologías, aunque también se usará algo de JavaScript para algunas funciones extras.</p>
+            <p>Para ver todo el código fuente, dejo el link al repositorio de GitHub <a href="https://github.com/alfgonfer/cosateca"> aquí</a>.</p>
+            </h4>
+        </div>
+        <div class="float-right col-sm-6">
+            <h4>En la Cosateca podrás:
+                <ul>
+                    <li>Ofrecer objetos que no uses a otros</li>
+                    <li>Pedir objetos que necesites</li>
+                    <li>Comentar en las ofertas</li>
+                    <li>Consultar el historial de préstamos</li>
+                </ul>
+                <p>El objetivo es crear una comunidad que vaya en aumento en el que los componentes sean personas
+                    solidarias con ganas de ayudar a la persona que tengas al lado.
+                </p>
+                <p>Tendrás que crearte una cuenta para poder interactuar con los demás usuarios.</p>
+            </h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
