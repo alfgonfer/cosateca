@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Oferta{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="d-flex flex-column justify-content-center">
+        <div class="p-2 justify-content-center">
+            <img class ="img-thumbnail" width="400" height="20" src="{{oferta.imagen}}"/>
+        </div>
+        <div class="p-2">
+            <h6><strong>{{oferta.titulo}}</strong></h6>
+        </div>
+        <div class="p-2">
+            {{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i>
+        </div>
+        <div class="p-2">
+            {{oferta.descripcion}}
+        </div>
+    </div>
+</div>
+{% endblock %}
