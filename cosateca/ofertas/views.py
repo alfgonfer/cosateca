@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse_lazy
 from .models import Oferta
-from .forms import OfertaForm
+from .forms import OfertaForm, OfertaDeleteForm
 from usuarios.models import Usuario
 
 class OfertaListView(ListView):
@@ -32,7 +32,7 @@ class OfertaShowView(TemplateView):
     def get(self, request, *args, **kwargs):
         try:
             oferta_id = kwargs['oferta_id']
-            if not Oferta.objects.filter(id=oferta_id):
+            if not Oferta.objects.filter(id=oferta_id).exists():
                 raise Exception('La oferta no existe')
             return super(OfertaShowView, self).get(request, kwargs['oferta_id'])
         except Exception:
@@ -55,7 +55,7 @@ class OfertaUpdateView(FormView):
     def get(self, request, *args, **kwargs):
         try:
             oferta_id = kwargs['oferta_id']
-            if not Oferta.objects.filter(id=oferta_id):
+            if not Oferta.objects.filter(id=oferta_id).exists():
                 raise Exception('La oferta no existe')
             return super(OfertaUpdateView, self).get(request, kwargs['oferta_id'])
         except Exception:
@@ -89,7 +89,26 @@ class MisOfertasView(TemplateView):
     template_name = 'ofertas/mis_ofertas.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         usuario = Usuario.objects.get(user=self.request.user)
-        ofertas = Ofertas.objects.filter(usuario=usuario)
+        ofertas = Oferta.objects.filter(usuario=usuario)
         context['ofertas'] = ofertas
         return context
+
+class OfertaDeleteView(FormView):
+    form_class = OfertaDeleteForm
+    success_url = reverse_lazy('mis_ofertas')
+    
+    def form_valid(self, form):
+        try:
+            oferta_id = form.cleaned_data['oferta_id']
+            if Oferta.objects.filter(id=oferta_id).exists():
+                oferta = Oferta.objects.get(id=oferta_id)
+                if oferta.usuario == Usuario.objects.get(user=self.request.user):
+                    oferta.delete()
+                    return super().form_valid(form)
+            else:
+                raise Exception('La oferta no existe o no eres el dueño')
+        except Exception:
+            context = {'error_message': 'Ha ocurrido un error inesperado'}
+            return render(request, 'base/error.html', context)

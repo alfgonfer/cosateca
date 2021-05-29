@@ -1,13 +1,12 @@
 {% extends 'base/base.html' %}
-{% block titulo_pagina %}Ofertas{% endblock %}
+{% block titulo_pagina %}Mis Ofertas{% endblock %}
 
 {% block contenido %}
 <div class="container-fluid">
     <div class="float-left">
-        <p><strong><h1>Ofertas</h1></strong></p>
+        <p><strong><h1>Mis Ofertas</h1></strong></p>
     </div>
     <div class="float-right mt-3">
-        <a href="{% url 'mis_ofertas' %}"><button class="btn btn-success">Mis ofertas</button></a>
         <a href="{% url 'crear_oferta' %}"><button class="btn btn-primary">Crear oferta</button></a>
     </div>
     <div class="row justify-content-center mt-3">
@@ -41,8 +40,16 @@
                 </a>
                 <span class="align-text-bottom">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span> 
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4 text-justify">
                 <span class="align-middle">{{oferta.descripcion | truncatewords:20}}</span>
+            </div>
+            <div class="col-sm-2 d-flex flex-column align-items-center">
+                <a href="{% url 'editar_oferta' oferta_id=oferta.id %}"><button class="btn btn-primary align-text-top">Editar oferta</button></a>
+                <form method="post" action="{% url 'borrar_oferta' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="oferta_id" value="{{oferta.id}}"/>
+                    <button type="submit" class="btn btn-danger align-text-bottom mt-1">Eliminar oferta</button>
+                </form>
             </div>
         </div>
         {% endfor %}
