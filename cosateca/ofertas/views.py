@@ -84,3 +84,12 @@ class OfertaUpdateView(FormView):
 
     def get_success_url(self):
         return reverse('mostrar_oferta', kwargs={'oferta_id':self.oferta_id})
+
+class MisOfertasView(TemplateView):
+    template_name = 'ofertas/mis_ofertas.html'
+
+    def get_context_data(self, **kwargs):
+        usuario = Usuario.objects.get(user=self.request.user)
+        ofertas = Ofertas.objects.filter(usuario=usuario)
+        context['ofertas'] = ofertas
+        return context
