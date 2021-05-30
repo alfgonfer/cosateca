@@ -2,6 +2,7 @@ __pycache__/
 *__pycache__*
 *$py.class
 db.sqlite3
+*:Zone.Identifier
 db.sqlite3-journal
 target/
 .env
@@ -12,3 +13,4 @@ venv/
 **/migrations/*
 !**/migrations/__init__.py
 !**/migrations/0001_initial.py
+*Zone.Identifier
