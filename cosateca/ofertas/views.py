@@ -4,6 +4,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from .models import Oferta
 from .forms import OfertaForm, OfertaDeleteForm
 from usuarios.models import Usuario
@@ -13,7 +15,8 @@ class OfertaListView(ListView):
     model = Oferta
     context_object_name = 'ofertas'
 
-class OfertaFormView(FormView):
+@method_decorator(login_required, name='dispatch')
+class OfertaCreateView(FormView):
     form_class = OfertaForm
     template_name = 'ofertas/crear_oferta.html'
     success_url = reverse_lazy('ofertas')
@@ -46,6 +49,7 @@ class OfertaShowView(TemplateView):
         context['oferta'] = oferta
         return context
 
+@method_decorator(login_required, name='dispatch')
 class OfertaUpdateView(FormView):
     form_class = OfertaForm
     template_name = 'ofertas/editar_oferta.html'
@@ -85,6 +89,7 @@ class OfertaUpdateView(FormView):
     def get_success_url(self):
         return reverse('mostrar_oferta', kwargs={'oferta_id':self.oferta_id})
 
+@method_decorator(login_required, name='dispatch')
 class MisOfertasView(TemplateView):
     template_name = 'ofertas/mis_ofertas.html'
 
@@ -95,6 +100,7 @@ class MisOfertasView(TemplateView):
         context['ofertas'] = ofertas
         return context
 
+@method_decorator(login_required, name='dispatch')
 class OfertaDeleteView(FormView):
     form_class = OfertaDeleteForm
     success_url = reverse_lazy('mis_ofertas')
