@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Login{% endblock %}
+
+{% block contenido %}
+           
+<div class="container-fluid">
+    <div class="row justify-content-center align-self-center mt-4">
+        <form class="align-self-center mt-5" method="post">
+            {% csrf_token %}
+            <h3><strong>Iniciar sesión en la Cosateca</strong></h3>
+            <div class="form-group mt-5"> 
+                <input class="form-control" type="text" name="username" placeholder="Nombre de usuario"/>
+            </div>
+            <div class="form-group mt-4">
+                <input class="form-control" type="password" name="password" placeholder="Contraseña"/>
+            </div>
+            {% if form.errors %}
+                <div class="alert alert-warning text-center" role="alert">
+                    Usuario o contraseña incorrectos.
+                </div>
+            {% endif %}
+            <div class="form-group text-center mt-5">
+                <input type="submit" class="btn btn-primary" value="Iniciar sesión"/>
+            </div>
+            <div class="form-group text-center">
+                ¿Todavía no tienes una cuenta? <a href="/registro">Regístrate</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
