@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Peticiones{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="float-left">
+        <p><strong><h1>Peticiones</h1></strong></p>
+    </div>
+    <div class="float-right mt-3">
+        <a href="{% url 'mis_peticiones' %}"><button class="btn btn-success">Mis peticiones</button></a>
+        <a href="{% url 'crear_peticion' %}"><button class="btn btn-primary">Crear petición</button></a>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <form class="card">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <div class="col">
+                        <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Buscar por título o descripción...">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success" type="submit">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% for peticion in peticiones %}
+        <div class="container d-flex mt-5">
+            <div class="col-sm-4 d-flex flex-column">
+                    <span class="align-text-top"><strong>{{peticion.titulo}}</strong></span>
+                <span class="align-text-bottom">{{peticion.usuario.user.username}}-<i>{{peticion.fecha_publicacion}}</i></span> 
+            </div>
+            <div class="col-sm-4 justify-content-center text-justify">
+                <span class="align-middle">{{peticion.descripcion}}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
