@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Notificaciones{% endblock %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+    <div class="container-fluid mt-3">
+        <div class="">
+            <h1><strong>Notificaciones</strong></h1>
+        </div>
+        <div class="container-fluid">
+        {% for notificacion in notificaciones %}
+        <div class="container d-flex mt-3">
+            <div class="float-left">
+                <i>{{notificacion.fecha_notificacion}}</i>
+            </div>
+            <div class="ml-5 text-justify justify-content-center">
+                {% if notificacion.telefono != '0' %}
+                    <strong>{{notificacion.contraparte}}</strong>&nbsp va a prestarte su &nbsp<strong>{{notificacion.objeto}}</strong>. Aquí tienes su teléfono: {{notificacion.telefono}}
+                {% else %}
+                    <strong>{{notificacion.contraparte}}</strong>&nbsp quiere pedirte tu &nbsp<strong>{{notificacion.objeto}}</strong>. {{notificacion.telefono}}
+                    <div class="float-right">
+                        <button class="btn btn-primary">Prestar</button>
+                    </div>
+              {% endif %}
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+
+{% endblock %}

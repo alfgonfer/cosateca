@@ -18,10 +18,12 @@ from django.urls import path, include
 from usuarios import urls as usuarios_urls
 from ofertas import urls as ofertas_urls
 from peticiones import urls as peticiones_urls
+from prestamos import urls as prestamos_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(usuarios_urls)),
     path('ofertas/', include(ofertas_urls)),
-    path('peticiones/', include(peticiones_urls))
+    path('peticiones/', include(peticiones_urls)),
+    path('prestamos/',include(prestamos_urls))
 ]
