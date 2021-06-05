@@ -1,9 +1,8 @@
 from django import forms
 
-class OfertaForm(forms.Form):
+class PeticionForm(forms.Form):
     titulo = forms.CharField(required=True)
     descripcion = forms.CharField(required=True, widget=forms.Textarea())
-    imagen = forms.CharField(required=True)
 
     def clean(self):
         titulo = self.cleaned_data.get('titulo')
@@ -16,5 +15,7 @@ class OfertaForm(forms.Form):
             self._errors['descripcion'] = self.error_class([msg])
         return self.cleaned_data
 
-class OfertaDeleteForm(forms.Form):
-    oferta_id = forms.IntegerField(widget=forms.HiddenInput(), required= True)
+
+
+class PeticionDeleteForm(forms.Form):
+    peticion_id = forms.IntegerField(widget=forms.HiddenInput(), required= True)

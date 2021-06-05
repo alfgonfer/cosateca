@@ -24,8 +24,17 @@
                 <label for="descripcion">Descripción:</label>
                 <textarea class="form-control" name="descripcion" cols="40" rows="5">{{oferta.descripcion}}</textarea>
             </div>
+            {% if form.errors %}
+                <div class="alert alert-warning text-center">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                            {{ error }} <br>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                {% endif %}
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Crear"/>
+                <input type="submit" class="btn btn-primary" value="Guardar"/>
             </div>
         </form>
     </div>
