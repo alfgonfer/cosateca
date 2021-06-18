@@ -18,9 +18,14 @@
                 {% if notificacion.telefono != '0' %}
                     <strong>{{notificacion.contraparte}}</strong>&nbsp va a prestarte su &nbsp<strong>{{notificacion.objeto}}</strong>. Aquí tienes su teléfono: {{notificacion.telefono}}
                 {% else %}
-                    <strong>{{notificacion.contraparte}}</strong>&nbsp quiere pedirte tu &nbsp<strong>{{notificacion.objeto}}</strong>. {{notificacion.telefono}}
+                    <strong>{{notificacion.contraparte}}</strong>&nbsp quiere pedirte tu &nbsp<strong>{{notificacion.objeto}}</strong>.
                     <div class="float-right">
-                        <button class="btn btn-primary">Prestar</button>
+                        <form method="POST" action="{% url 'prestar_notificacion' %}">
+                        {% csrf_token %}
+                            <input type="hidden" name="oferta_id" value="{{notificacion.oferta_id}}"/>
+                            <input type="hidden" name="nombre_recibidor" value="{{notificacion.contraparte}}"/>
+                            <button class="btn btn-primary">Prestar</button>
+                        </form>
                     </div>
               {% endif %}
             </div>
