@@ -10,11 +10,11 @@
         </div>
         <div class="container-fluid">
         {% for prestamo in prestamos %}
-        <div class="container d-flex mt-3">
-            <div class="float-left">
+        <div class="row">
+            <div class="col-3">
                <p class="text-right"><i>{{prestamo.fecha_prestamo}}</i></p>
             </div>
-            <div class="ml-5 text-justify justify-content-center">
+            <div class="col-6 ml-5 text-justify justify-content-center">
                 <strong>{{prestamo.prestador}}</strong>&nbsp le ha prestado su &nbsp<strong>{{prestamo.objeto}}</strong>&nbsp a &nbsp<strong>{{prestamo.recibidor}}</strong>.
             </div>
             </div>

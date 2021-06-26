@@ -10,16 +10,16 @@
         </div>
         <div class="container-fluid">
         {% for notificacion in notificaciones %}
-        <div class="container d-flex mt-3">
-            <div class="float-left">
-                <i>{{notificacion.fecha_notificacion}}</i>
+        <div class="row mt-3">
+            <div class="col-3">
+                <p class="text-right"><i>{{notificacion.fecha_notificacion}}</i></p>
             </div>
-            <div class="ml-5 text-justify justify-content-center">
+            <div class="col-6 ml-5 text-justify justify-content-center">
                 {% if notificacion.telefono != '0' %}
                     <strong>{{notificacion.contraparte}}</strong>&nbsp va a prestarte su &nbsp<strong>{{notificacion.objeto}}</strong>. Aquí tienes su teléfono: {{notificacion.telefono}}
                 {% else %}
                     <strong>{{notificacion.contraparte}}</strong>&nbsp quiere pedirte tu &nbsp<strong>{{notificacion.objeto}}</strong>.
-                    <div class="float-right">
+                    <div class="col-1 float-right">
                         <form method="POST" action="{% url 'prestar_notificacion' %}">
                         {% csrf_token %}
                             <input type="hidden" name="oferta_id" value="{{notificacion.oferta_id}}"/>

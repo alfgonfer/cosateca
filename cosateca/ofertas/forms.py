@@ -18,3 +18,12 @@ class OfertaForm(forms.Form):
 
 class OfertaDeleteForm(forms.Form):
     oferta_id = forms.IntegerField(widget=forms.HiddenInput(), required= True)
+
+class ComentarForm(forms.Form):
+    texto = forms.CharField(required=True)
+
+    def clean(self):
+        texto = self.cleaned_data.get('texto')
+        if len(str(texto)) > 400:
+            msg = 'El comentario debe tener como máximo 400 caracteres (tiene ' + str(len(descripcion)) +')'
+        return self.cleaned_data
