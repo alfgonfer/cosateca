@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import OfertaListView, OfertaCreateView, OfertaShowView, OfertaUpdateView, MisOfertasView, OfertaDeleteView
+from .views import OfertaListView, OfertaCreateView, OfertaShowView, OfertaUpdateView, MisOfertasView, OfertaDeleteView, ComentarFormView
 
 urlpatterns=[
     path('',OfertaListView.as_view(), name='ofertas'),
@@ -8,4 +8,5 @@ urlpatterns=[
     path('borrar/', OfertaDeleteView.as_view(), name='borrar_oferta'),
     path('<oferta_id>/', OfertaShowView.as_view(), name='mostrar_oferta'),
     path('editar/<oferta_id>/', OfertaUpdateView.as_view(), name='editar_oferta'),
+    path('<oferta_id>/comentar/', ComentarFormView.as_view(), name='comentar'),
 ]

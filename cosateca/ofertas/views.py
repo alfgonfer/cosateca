@@ -6,8 +6,8 @@ from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .models import Oferta
-from .forms import OfertaForm, OfertaDeleteForm
+from .models import Oferta, Comentario
+from .forms import OfertaForm, OfertaDeleteForm, ComentarForm
 from usuarios.models import Usuario
 
 class OfertaListView(ListView):
@@ -46,6 +46,8 @@ class OfertaShowView(TemplateView):
         oferta_id = self.kwargs['oferta_id']
         context = super().get_context_data(**kwargs)
         oferta = Oferta.objects.get(id=oferta_id)
+        comentarios = Comentario.objects.filter(oferta=oferta)
+        context['comentarios'] = comentarios
         context['oferta'] = oferta
         return context
 
@@ -118,3 +120,19 @@ class OfertaDeleteView(FormView):
         except Exception:
             context = {'error_message': 'Ha ocurrido un error inesperado'}
             return render(request, 'base/error.html', context)
+
+@method_decorator(login_required, name='dispatch')
+class ComentarFormView(FormView):
+    form_class = ComentarForm
+    oferta_id = None
+
+    def form_valid(self, form):
+        self.oferta_id = self.kwargs['oferta_id']
+        oferta = Oferta.objects.get(id=self.oferta_id)
+        usuario = Usuario.objects.get(user=self.request.user)
+        texto = form.cleaned_data['texto']
+        Comentario.objects.create(usuario=usuario, oferta=oferta, texto=texto)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('mostrar_oferta', kwargs={'oferta_id':self.oferta_id})
