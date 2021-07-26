@@ -14,6 +14,7 @@ class OfertaListView(ListView):
     template_name='ofertas/lista_ofertas.html'
     model = Oferta
     context_object_name = 'ofertas'
+    paginate_by = 5
 
 @method_decorator(login_required, name='dispatch')
 class OfertaCreateView(FormView):

@@ -7,6 +7,9 @@ class Oferta(models.Model):
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     imagen = models.TextField()
 
+    class Meta:
+        ordering = ['-id']
+
 class Comentario(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     oferta = models.ForeignKey(Oferta, on_delete=models.CASCADE)

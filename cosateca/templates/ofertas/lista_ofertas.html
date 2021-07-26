@@ -27,9 +27,9 @@
             </form>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid infinite-container">
         {% for oferta in ofertas %}
-        <div class="container d-flex mt-5">
+        <div class="container d-flex mt-5 infinite-item">
             <div class="float-left col-sm-2">
                 <a href="{% url 'mostrar_oferta' oferta_id=oferta.id %}">
                     <img class ="img-thumbnail" width="200" height="20" src="{{oferta.imagen}}"/>
@@ -55,6 +55,16 @@
             {% endif %}
         </div>
         {% endfor %}
+    </div>
+    <div class="col-12 mt-3 mb-3 text-center">
+        {% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+        <div class="d-flex justify-content-center" style="display:none;">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

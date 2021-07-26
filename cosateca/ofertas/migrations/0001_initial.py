@@ -33,5 +33,8 @@ class Migration(migrations.Migration):
                 ('oferta', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ofertas.Oferta')),
                 ('usuario', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='usuarios.Usuario')),
             ],
+            options={
+                'ordering': ['-id'],
+            },
         ),
     ]
