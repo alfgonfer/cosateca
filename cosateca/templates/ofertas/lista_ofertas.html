@@ -2,8 +2,7 @@
 {% block titulo_pagina %}Ofertas{% endblock %}
 
 {% block contenido %}
-<div class="container-fluid">
-    <div class="float-left">
+    <!--<div class="float-left">
         <p><strong><h1>Ofertas</h1></strong></p>
     </div>
     <div class="float-right mt-3">
@@ -26,6 +25,38 @@
                 </div>
             </form>
         </div>
+    </div>-->
+    <div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-3">
+            <strong><h1>Ofertas</h1></strong>
+        </div>
+            <div class="col-6 mt-2">
+            <form method="GET" class="form">
+                <div class="input-group input-group-lg">
+                    <i class="fas fa-search h4 text-body mt-2"></i>
+                    <input type="text" class="rounded ml-2 mr-2 form-control form-control-lg form-control-borderless input-lg w-70" placeholder="Buscar por título o descripción..."/>
+                    <select class="rounded">
+                    <option disabled selected>Selecciona una provincia</option>
+                    <option value=""></option>
+                    {% for provincia in buscar_form.provincia %}
+                        {{provincia}}
+                    {% endfor %}
+                    </select>
+                    <span class="ml-3 input-group-btn">
+                        <button class="btn btn-lg btn-success" type="submit">Buscar</button>
+                    </span>
+                  </div>
+            </form>
+        </div>
+        <div class="col-2 float-right ml-5 mt-3">
+        
+            <a href="{% url 'mis_ofertas' %}"><button class="btn btn-success">Mis ofertas</button></a>
+       
+        
+            <a href="{% url 'crear_oferta' %}"><button class="btn btn-primary">Crear oferta</button></a>
+        
+    </div>
     </div>
     <div class="container-fluid infinite-container">
         {% for oferta in ofertas %}
@@ -39,10 +70,11 @@
                 <a href="{% url 'mostrar_oferta' oferta_id=oferta.id %}">
                     <span class="align-text-top"><strong>{{oferta.titulo}}</strong></span>
                 </a>
-                <span class="align-text-bottom">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span> 
+                <span class="align-text-bottom mt-1">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span>
+                <span class="align-text-bottom mt-1">En <strong>{{oferta.provincia}}</strong></span> 
             </div>
             <div class="col-sm-4 justify-content-center text-justify">
-                <span class="align-middle">{{oferta.descripcion | truncatewords:20}}</span>
+                <span class="align-middle mt-1">{{oferta.descripcion | truncatewords:20}}</span>
             </div>
             {% if user != oferta.usuario.user%}
             <div class="float-right col-sm-2">

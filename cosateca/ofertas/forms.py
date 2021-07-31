@@ -1,9 +1,68 @@
 from django import forms
+from django.forms import widgets
+from django.forms.fields import ChoiceField
+from django.utils.translation import ugettext_lazy as _
+
+PROVINCIAS_CHOICES=[
+    ('Alava', _('Álava')),
+    ('Albacete', _('Albacete')),
+    ('Alicante', _('Alicante')),
+    ('Almeria', _('Almería')),
+    ('Avila', _('Ávila')),
+    ('Badajoz', _('Badajoz')),
+    ('Baleares', _('Baleares')),
+    ('Barcelona', _('Barcelona')),
+    ('Burgos', _('Burgos')),
+    ('Caceres', _('Cáceres')),
+    ('Cadiz', _('Cádiz')),
+    ('Castellon', _('Castelló')),
+    ('Ciudad Real', _('Ciudad Real')),
+    ('Cordoba', _('Córdoba')),
+    ('A Coruna', _('A Coruña')),
+    ('Cuenca', _('Cuenca')),
+    ('Girona', _('Girona')),
+    ('Granada', _('Granada')),
+    ('Guadalajara', _('Guadalajara')),
+    ('Guipuzcoa', _('Guipúzcoa')),
+    ('Huelva', _('Huelva')),
+    ('Huesca', _('Huesca')),
+    ('Jaen', _('Jaén')),
+    ('Leon', _('León')),
+    ('Lleida', _('Lleida')),
+    ('La Rioja', _('La Rioja')),
+    ('Lugo', _('Lugo')),
+    ('Madrid', _('Madrid')),
+    ('Málaga', _('Malaga')),
+    ('Murcia', _('Murcia')),
+    ('Navarra', _('Navarra')),
+    ('Orense', _('Orense')),
+    ('Asturias', _('Asturias')),
+    ('Palencia', _('Palencia')),
+    ('Las Palmas', _('Las Palmas')),
+    ('Pontevedra', _('Pontevedra')),
+    ('Salamanca', _('Salamanca')),
+    ('Santa Cruz de Tenerife', _('Santa Cruz de Tenerife')),
+    ('Cantabria', _('Cantabria')),
+    ('Segovia', _('Segovia')),
+    ('Sevilla', _('Sevilla')),
+    ('Soria', _('Soria')),
+    ('Tarragona', _('Tarragona')),
+    ('Teruel', _('Teruel')),
+    ('Toledo', _('Toledo')),
+    ('Valencia', _('Valencia')),
+    ('Valladolid', _('Valladolid')),
+    ('Vizcaya', _('Vizcaya')),
+    ('Zamora', _('Zamora')),
+    ('Zaragoza', _('Zaragoza')),
+    ('Ceuta', _('Ceuta')),
+    ('Melilla', _('Melilla'))
+]
 
 class OfertaForm(forms.Form):
     titulo = forms.CharField(required=True)
     descripcion = forms.CharField(required=True, widget=forms.Textarea())
     imagen = forms.CharField(required=True)
+    provincia = forms.ChoiceField(widget=forms.Select(attrs={'class' : 'form-control', 'name' : 'provincia'}), choices=PROVINCIAS_CHOICES, required=True)
 
     def clean(self):
         titulo = self.cleaned_data.get('titulo')
@@ -27,3 +86,8 @@ class ComentarForm(forms.Form):
         if len(str(texto)) > 400:
             msg = 'El comentario debe tener como máximo 400 caracteres (tiene ' + str(len(descripcion)) +')'
         return self.cleaned_data
+
+
+class BuscarOfertaForm(forms.Form):
+    texto = forms.CharField()
+    provincia = forms.ChoiceField(widget=forms.Select(attrs={'class' : 'form-control rounded', 'name' : 'provincia'}), choices=PROVINCIAS_CHOICES)

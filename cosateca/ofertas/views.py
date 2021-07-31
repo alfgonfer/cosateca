@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Oferta, Comentario
-from .forms import OfertaForm, OfertaDeleteForm, ComentarForm
+from .forms import OfertaForm, OfertaDeleteForm, ComentarForm, BuscarOfertaForm
 from usuarios.models import Usuario
 
 class OfertaListView(ListView):
@@ -15,6 +15,12 @@ class OfertaListView(ListView):
     model = Oferta
     context_object_name = 'ofertas'
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        buscar_form = BuscarOfertaForm
+        context['buscar_form'] = buscar_form
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class OfertaCreateView(FormView):
@@ -27,7 +33,8 @@ class OfertaCreateView(FormView):
         imagen = form.cleaned_data['imagen']
         titulo = form.cleaned_data['titulo']
         descripcion = form.cleaned_data['descripcion']
-        Oferta.objects.create(usuario=usuario, titulo=titulo, descripcion=descripcion, imagen=imagen)
+        provincia = form.cleaned_data['provincia']
+        Oferta.objects.create(usuario=usuario, titulo=titulo, descripcion=descripcion, imagen=imagen, provincia=provincia)
         return super().form_valid(form)
 
 class OfertaShowView(TemplateView):
