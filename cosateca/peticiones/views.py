@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView, UpdateView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from ofertas.forms import BuscarForm
 from .models import Peticion
 from .forms import PeticionForm, PeticionDeleteForm
 from usuarios.models import Usuario
@@ -14,6 +15,32 @@ class PeticionListView(ListView):
     template_name='peticiones/lista_peticiones.html'
     model = Peticion
     context_object_name = 'peticiones'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        buscar_form = BuscarForm
+        context['buscar_form'] = buscar_form
+        return context
+
+    def get_queryset(self):
+        texto = self.request.GET.get('texto', '')
+        provincia = self.request.GET.get('provincia', '')
+        lista_peticiones = Peticion.objects.all()
+        peticiones =  []
+        for peticion in lista_peticiones:
+            if texto != '' and provincia != '':
+                if (texto.lower() in peticion.titulo.lower() or texto.lower() in peticion.descripcion.lower()) and provincia == peticion.provincia:
+                    peticiones.append(peticion)
+            elif texto != '':
+                if texto.lower() in peticion.titulo.lower() or texto.lower() in peticion.descripcion.lower():
+                    peticiones.append(peticion)
+            elif provincia != '':
+                if provincia == peticion.provincia:
+                    peticiones.append(peticion)
+            else:
+                peticiones.append(peticion)
+            
+        return peticiones
 
 @method_decorator(login_required, name='dispatch')
 class PeticionCreateView(FormView):
@@ -25,7 +52,8 @@ class PeticionCreateView(FormView):
         usuario = Usuario.objects.get(user=self.request.user)
         titulo = form.cleaned_data['titulo']
         descripcion = form.cleaned_data['descripcion']
-        Peticion.objects.create(usuario=usuario, titulo=titulo, descripcion=descripcion)
+        provincia = form.cleaned_data['provincia']
+        Peticion.objects.create(usuario=usuario, titulo=titulo, descripcion=descripcion, provincia=provincia)
         return super().form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
@@ -50,8 +78,10 @@ class PeticionUpdateView(FormView):
         peticion = Peticion.objects.get(id=self.kwargs['peticion_id'])
         titulo = form.cleaned_data['titulo']
         descripcion = form.cleaned_data['descripcion']
+        provincia = form.cleaned_data['provincia']
         peticion.titulo = titulo
         peticion.descripcion = descripcion
+        peticion.provincia = provincia
         peticion.save()
         return super().form_valid(form)
 

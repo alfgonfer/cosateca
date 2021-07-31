@@ -38,7 +38,8 @@
                 <a href="{% url 'mostrar_oferta' oferta_id=oferta.id %}">
                     <span class="align-text-top"><strong>{{oferta.titulo}}</strong></span>
                 </a>
-                <span class="align-text-bottom">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span> 
+                <span class="align-text-bottom mt-1">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span>
+                <span class="align-text-bottom mt-1">En <strong>{{oferta.provincia}}</strong></span>  
             </div>
             <div class="col-sm-4 text-justify">
                 <span class="align-middle">{{oferta.descripcion | truncatewords:20}}</span>

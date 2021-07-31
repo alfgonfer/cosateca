@@ -4,35 +4,35 @@ from django.forms.fields import ChoiceField
 from django.utils.translation import ugettext_lazy as _
 
 PROVINCIAS_CHOICES=[
-    ('Alava', _('Álava')),
+    ('Álava', _('Álava')),
     ('Albacete', _('Albacete')),
     ('Alicante', _('Alicante')),
-    ('Almeria', _('Almería')),
-    ('Avila', _('Ávila')),
+    ('Almería', _('Almería')),
+    ('Ávila', _('Ávila')),
     ('Badajoz', _('Badajoz')),
     ('Baleares', _('Baleares')),
     ('Barcelona', _('Barcelona')),
     ('Burgos', _('Burgos')),
-    ('Caceres', _('Cáceres')),
-    ('Cadiz', _('Cádiz')),
-    ('Castellon', _('Castelló')),
+    ('Cáceres', _('Cáceres')),
+    ('Cádiz', _('Cádiz')),
+    ('Castellón', _('Castellón')),
     ('Ciudad Real', _('Ciudad Real')),
-    ('Cordoba', _('Córdoba')),
-    ('A Coruna', _('A Coruña')),
+    ('Córdoba', _('Córdoba')),
+    ('A Coruña', _('A Coruña')),
     ('Cuenca', _('Cuenca')),
     ('Girona', _('Girona')),
     ('Granada', _('Granada')),
     ('Guadalajara', _('Guadalajara')),
-    ('Guipuzcoa', _('Guipúzcoa')),
+    ('Guipúzcoa', _('Guipúzcoa')),
     ('Huelva', _('Huelva')),
     ('Huesca', _('Huesca')),
-    ('Jaen', _('Jaén')),
-    ('Leon', _('León')),
+    ('Jaén', _('Jaén')),
+    ('León', _('León')),
     ('Lleida', _('Lleida')),
     ('La Rioja', _('La Rioja')),
     ('Lugo', _('Lugo')),
     ('Madrid', _('Madrid')),
-    ('Málaga', _('Malaga')),
+    ('Málaga', _('Málaga')),
     ('Murcia', _('Murcia')),
     ('Navarra', _('Navarra')),
     ('Orense', _('Orense')),
@@ -88,6 +88,6 @@ class ComentarForm(forms.Form):
         return self.cleaned_data
 
 
-class BuscarOfertaForm(forms.Form):
+class BuscarForm(forms.Form):
     texto = forms.CharField()
     provincia = forms.ChoiceField(widget=forms.Select(attrs={'class' : 'form-control rounded', 'name' : 'provincia'}), choices=PROVINCIAS_CHOICES)

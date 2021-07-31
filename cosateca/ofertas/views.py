@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Oferta, Comentario
-from .forms import OfertaForm, OfertaDeleteForm, ComentarForm, BuscarOfertaForm
+from .forms import OfertaForm, OfertaDeleteForm, ComentarForm, BuscarForm
 from usuarios.models import Usuario
 
 class OfertaListView(ListView):
@@ -18,9 +18,30 @@ class OfertaListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        buscar_form = BuscarOfertaForm
+        buscar_form = BuscarForm
         context['buscar_form'] = buscar_form
         return context
+
+    def get_queryset(self):
+        texto = self.request.GET.get('texto', '')
+        provincia = self.request.GET.get('provincia', '')
+        lista_ofertas = Oferta.objects.all()
+        ofertas =  []
+        for oferta in lista_ofertas:
+            if texto != '' and provincia != '':
+                if (texto.lower() in oferta.titulo.lower() or texto.lower() in oferta.descripcion.lower()) and provincia == oferta.provincia:
+                    ofertas.append(oferta)
+            elif texto != '':
+                if texto.lower() in oferta.titulo.lower() or texto.lower() in oferta.descripcion.lower():
+                    ofertas.append(oferta)
+            elif provincia != '':
+                if provincia == oferta.provincia:
+                    ofertas.append(oferta)
+            else:
+                ofertas.append(oferta)
+            
+        return ofertas
+        
 
 @method_decorator(login_required, name='dispatch')
 class OfertaCreateView(FormView):
@@ -82,9 +103,11 @@ class OfertaUpdateView(FormView):
         oferta = Oferta.objects.get(id=self.kwargs['oferta_id'])
         imagen = form.cleaned_data['imagen']
         titulo = form.cleaned_data['titulo']
+        provincia = form.cleaned_data['provincia']
         descripcion = form.cleaned_data['descripcion']
         oferta.imagen = imagen
         oferta.titulo = titulo
+        oferta.provincia = provincia
         oferta.descripcion = descripcion
         oferta.save()
         return super().form_valid(form)
