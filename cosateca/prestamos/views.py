@@ -59,7 +59,6 @@ class PrestarNotificacionFormView(FormView):
     success_url = reverse_lazy('notificaciones')
 
     def form_valid(self, form):
-        print("llego aqui")
         oferta = Oferta.objects.get(id=form.cleaned_data['oferta_id'])
         objeto = oferta.titulo
         usuario = Usuario.objects.get(user=self.request.user)
