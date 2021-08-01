@@ -7,7 +7,7 @@
         <div class="col-10">
             <p><strong><h1>Mis peticiones</h1></strong></p>
         </div>
-        <div class="col-2">
+        <div class="col-2 mt-3">
             <a href="{% url 'crear_peticion' %}"><button class="btn btn-primary">Crear petición</button></a>
         </div>
     </div>
@@ -17,8 +17,8 @@
             <div class="col-sm-4 d-flex flex-column">
                     <span class="align-text-top"><strong>{{peticion.titulo}}</strong></span>
                 </a>
-                <span class="align-text-bottom mt-5"><i>{{peticion.fecha_publicacion}}</i></span> 
-                <span class="align-text-bottom mt-1">En <strong>{{oferta.provincia}}</strong></span> 
+                <span class="align-text-bottom mt-3"><i>{{peticion.fecha_publicacion}}</i></span> 
+                <span class="align-text-bottom mt-1">En <strong>{{peticion.provincia}}</strong></span> 
             </div>
             <div class="col-sm-5 text-justify">
                 <span class="align-middle">{{peticion.descripcion}}</span>

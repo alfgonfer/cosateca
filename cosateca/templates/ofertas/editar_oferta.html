@@ -28,7 +28,7 @@
                 <label for="provincia">Provincia:</label>
                 <select name="provincia" class="rounded form-control">
                 {% for provincia in form.provincia %}
-                    <option value="{{provincia|striptags}}" {% if peticion.provincia == provincia|striptags %} selected {% endif %}>{{provincia|striptags}}</option>
+                    <option value="{{provincia|striptags}}" {% if oferta.provincia == provincia|striptags %} selected {% endif %}>{{provincia|striptags}}</option>
                 {% endfor %}
                 </select>
             </div>

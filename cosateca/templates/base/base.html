@@ -16,7 +16,7 @@
         <nav class="navbar navbar-expand bg-success navbar-dark py-3">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a class="navbar-brand" href="#">Cosateca</a>
+                <a class="navbar-brand" href="/">Cosateca</a>
               </div>
               <ul class="navbar-nav mr-auto pl-2">
                 <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
@@ -27,7 +27,6 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                  <li class="nav-item"><a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span> Mi perfil</a></li>
                   <li class="nav-item"><a class="nav-link" href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
                 {% else %}
                   <li class="nav-item"><a class="nav-link" href="/registro"><span class="glyphicon glyphicon-user"></span> Regístrate</a></li>
