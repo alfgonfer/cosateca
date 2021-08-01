@@ -3,27 +3,12 @@
 
 {% block contenido %}
 <div class="container-fluid">
-    <div class="float-left">
-        <p><strong><h1>Mis Ofertas</h1></strong></p>
-    </div>
-    <div class="float-right mt-3">
-        <a href="{% url 'crear_oferta' %}"><button class="btn btn-primary">Crear oferta</button></a>
-    </div>
-    <div class="row justify-content-center mt-3">
-        <div class="col-8">
-            <form class="card">
-                <div class="card-body row no-gutters align-items-center">
-                    <div class="col-auto">
-                        <i class="fas fa-search h4 text-body"></i>
-                    </div>
-                    <div class="col">
-                        <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Buscar por título o descripción...">
-                    </div>
-                    <div class="col-auto">
-                        <button class="btn btn-lg btn-success" type="submit">Buscar</button>
-                    </div>
-                </div>
-            </form>
+    <div class="row">
+        <div class="col-10">
+            <p><strong><h1>Mis Ofertas</h1></strong></p>
+        </div>
+        <div class="col-2 mt-3">
+            <a href="{% url 'crear_oferta' %}"><button class="btn btn-primary">Crear oferta</button></a>
         </div>
     </div>
     <div class="container-fluid">
@@ -38,7 +23,8 @@
                 <a href="{% url 'mostrar_oferta' oferta_id=oferta.id %}">
                     <span class="align-text-top"><strong>{{oferta.titulo}}</strong></span>
                 </a>
-                <span class="align-text-bottom">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span> 
+                <span class="align-text-bottom mt-1">{{oferta.usuario.user.username}}-<i>{{oferta.fecha_publicacion}}</i></span>
+                <span class="align-text-bottom mt-1">En <strong>{{oferta.provincia}}</strong></span>  
             </div>
             <div class="col-sm-4 text-justify">
                 <span class="align-middle">{{oferta.descripcion | truncatewords:20}}</span>

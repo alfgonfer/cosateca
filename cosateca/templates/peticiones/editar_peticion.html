@@ -15,6 +15,14 @@
                 <label for="descripcion">Descripción:</label>
                 <textarea class="form-control" name="descripcion" cols="70" rows="5">{{peticion.descripcion}}</textarea>
             </div>
+            <div class="form-group">
+                <label for="provincia">Provincia:</label>
+                <select name="provincia" class="rounded form-control">
+                {% for provincia in form.provincia %}
+                    <option value="{{provincia|striptags}}" {% if peticion.provincia == provincia|striptags %} selected {% endif %}>{{provincia|striptags}}</option>
+                {% endfor %}
+                </select>
+            </div>
             {% if form.errors %}
                 <div class="alert alert-warning text-center">
                 {% for field in form %}
