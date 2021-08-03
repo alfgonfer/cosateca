@@ -6,6 +6,9 @@ class Prestamo(models.Model):
     objeto = models.TextField()
     recibidor = models.CharField(max_length=30)
     fecha_prestamo = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-id']
 
 class Notificacion(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -14,3 +17,6 @@ class Notificacion(models.Model):
     telefono = models.CharField(max_length=9, null=True, default=0)
     oferta_id = models.IntegerField(null=True)
     fecha_notificacion = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-id']
