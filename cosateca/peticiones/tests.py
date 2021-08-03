@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from usuarios.models import Usuario
 from .models import Peticion
 
-class OfertasTestCase(APITestCase):
+class PeticionesTestCase(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
@@ -12,7 +12,7 @@ class OfertasTestCase(APITestCase):
         self.u.set_password('usuario1234')
         self.u.email = 'prueba@gmail.com'
         self.u.save()
-        self.usuario = Usuario(user=self.u, telefono=123456789)
+        self.usuario = Usuario(user=self.u, telefono='123456789')
         self.usuario.save()
 
     def tearDown(self):

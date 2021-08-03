@@ -11,7 +11,7 @@ class UsuarioTestCase(APITestCase):
         self.u.set_password('usuario1234')
         self.u.email = 'prueba@gmail.com'
         self.u.save()
-        self.usuario = Usuario(user=self.u, telefono=123456789)
+        self.usuario = Usuario(user=self.u, telefono='123456789')
 
     def tearDown(self):
         self.client = None
