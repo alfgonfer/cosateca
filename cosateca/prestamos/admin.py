@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Notificacion, Prestamo
 
-# Register your models here.
+admin.site.register(Notificacion)
+admin.site.register(Prestamo)

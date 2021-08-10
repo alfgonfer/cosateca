@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Mis peticiones{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10">
+            <p><strong><h1>Mis peticiones</h1></strong></p>
+        </div>
+        <div class="col-2 mt-3">
+            <a href="{% url 'crear_peticion' %}"><button class="btn btn-primary">Crear petición</button></a>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% for peticion in peticiones %}
+        <div class="container d-flex mt-3 border">
+            <div class="col-sm-4 d-flex flex-column">
+                    <span class="align-text-top"><strong>{{peticion.titulo}}</strong></span>
+                </a>
+                <span class="align-text-bottom mt-3"><i>{{peticion.fecha_publicacion}}</i></span> 
+                <span class="align-text-bottom mt-1">En <strong>{{peticion.provincia}}</strong></span> 
+            </div>
+            <div class="col-sm-5 text-justify mt-3">
+                <span class="align-middle">{{peticion.descripcion}}</span>
+            </div>
+            <div class="col-sm-2 d-flex flex-column align-items-center mt-3 mb-3">
+                <a href="{% url 'editar_peticion' peticion_id=peticion.id %}"><button class="btn btn-primary align-text-top">Editar petición</button></a>
+                <form method="post" action="{% url 'borrar_peticion' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="peticion_id" value="{{peticion.id}}"/>
+                    <button type="submit" class="btn btn-danger align-text-bottom mt-2">Eliminar petición</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

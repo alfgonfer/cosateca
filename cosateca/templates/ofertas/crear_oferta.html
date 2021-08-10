@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Crear oferta{% endblock %}
+
+{% block contenido %}
+           
+<div class="container-fluid">
+    <div class="row justify-content-center align-self-center">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-inline mt-3">
+                <label for="imagen">Imagen:</label>
+                <input id="imagen-input" class="form-control ml-1" type="text" name="imagen" placeholder="Pega la URL de la imagen"/>
+                <button class="btn btn-primary ml-2" type="button" id="mostrar-imagen">Mostrar imagen</button>
+                <img id ="imagen" class ="img-thumbnail ml-2" width="200" height="20" src="https://www.kerlanictile.es/wp-content/uploads/2016/08/20x20.png"/>
+            </div>
+            <div class="form-group">
+                <small>Si no ves ninguna imagen a la derecha, prueba con otra URL. Una buena foto ayudará a los demás a saber qué ofreces</small>
+            </div>
+            <div class="form-group"> 
+                <label for="titulo">Título:</label>
+                <input class="form-control" type="text" name="titulo"/>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea class="form-control" name="descripcion" cols="40" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="provincia">Provincia:</label>
+                {{form.provincia}}
+            </div>
+            {% if form.errors %}
+                <div class="alert alert-warning text-center">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                            {{ error }} <br>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                {% endif %}
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Crear"/>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

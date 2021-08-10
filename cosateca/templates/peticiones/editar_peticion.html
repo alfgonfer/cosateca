@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% block titulo_pagina %}Editar petición{% endblock %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+    <div class=" row justify-content-center align-self-center">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group"> 
+                <label for="titulo">Título:</label>
+                <input class="form-control" type="text" name="titulo" value="{{peticion.titulo}}"/>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea class="form-control" name="descripcion" cols="70" rows="5">{{peticion.descripcion}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="provincia">Provincia:</label>
+                <select name="provincia" class="rounded form-control">
+                {% for provincia in form.provincia %}
+                    <option value="{{provincia|striptags}}" {% if peticion.provincia == provincia|striptags %} selected {% endif %}>{{provincia|striptags}}</option>
+                {% endfor %}
+                </select>
+            </div>
+            {% if form.errors %}
+                <div class="alert alert-warning text-center">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                            {{ error }} <br>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+                {% endif %}
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Guardar"/>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
